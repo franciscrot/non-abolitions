@@ -226,6 +226,12 @@ const interactions = {
         "The mime traces a circle in the air: a promise without a fence.",
         "The mime bows, and you feel the ache of a promise kept.",
       ]);
+      if (state.flags.openHand) {
+        return "The mime nods, recognizing the open-hand signal you already know.";
+      }
+      state.flags.openHand = true;
+      state.inventory.add("open-hand signal");
+      return "The mime teaches you the Open-Hand Signal. It is a language of refusal and care.";
     },
   },
   mural: {
@@ -251,6 +257,7 @@ const interactions = {
         "Wordle sketches a map of the senate on a napkin, then lets it burn.",
         "Wordle asks, \"What else counts as a coup if not this?\"",
       ]);
+      return "Wordle listens as you say: Available Coups Are Broken. They nod, and the room shifts.";
     },
   },
   note: {
@@ -267,6 +274,21 @@ const interactions = {
       return "You leave a note where the soldiers will look first. It says only: I was here; I am gone.";
     },
   },
+  "pronoun lexicon": {
+    examine() {
+      return "The lexicon is alive. Each page updates with the body's mood, the city's algorithm, the weather.";
+    },
+  },
+  "wow swarm": {
+    examine() {
+      return "Insect-scale watcher drones buzz like pollen, sampling your gestures for forecasts.";
+    },
+  },
+  "street lamp question": {
+    examine() {
+      return "What is a street lamp? Whatever it is, we should be ashamed to behold it.";
+    },
+  },
   curtain: {
     take() {
       state.inventory.add("curtain");
@@ -281,6 +303,12 @@ const interactions = {
         "Margery watches you with the patience of a long road.",
         "Margery flicks an ear, listening for thunder only she can hear.",
       ]);
+      return "Margery the mule leans into your hand, steady as the horizon.";
+    },
+  },
+  "airship deck": {
+    examine() {
+      return "Windmills tilt at jaunty angles. The La Wrens show you farms built on the backs of clouds.";
     },
   },
   "story-machine": {
@@ -291,12 +319,18 @@ const interactions = {
         "The machine asks if you will trade one memory for a better ending.",
         "The machine laughs softly: \"Every epilogue is a door, not a wall.\"",
       ]);
+      return "The machine tells you a story about a city that became a building. You hear your own fear inside it.";
     },
   },
   "seed of future": {
     take() {
       state.inventory.add("seed of future");
       return "You take the seed of a future. It is small and heavy, an unpromised beginning.";
+    },
+  },
+  "endless ledger": {
+    examine() {
+      return "The ledger lists every task that sustains life. The margins are filled with more tasks.";
     },
   },
 };
@@ -372,6 +406,9 @@ function describeThing(item) {
 
 function randomLine(lines) {
   return lines[Math.floor(Math.random() * lines.length)];
+function findThing(target) {
+  const node = currentNode();
+  return node.things.find((thing) => thing === target);
 }
 
 function handleHelp() {
@@ -399,6 +436,7 @@ function handleExamine(target) {
     printLine(interaction.examine());
   } else {
     printLine(describeThing(item));
+    printLine(`You study the ${item}. It tells you something quiet.`);
   }
 }
 
@@ -426,14 +464,14 @@ function handleUse(target) {
     printLine("Use what?");
     return;
   }
-  const resolved = resolveAlias(target);
-  const interaction = interactions[resolved];
+  const normalized = normalizeTarget(target);
+  const interaction = interactions[normalized];
   if (interaction?.use) {
     printLine(interaction.use());
     return;
   }
-  if (state.inventory.has(resolved)) {
-    printLine(`You try using the ${resolved}, but nothing obvious happens.`);
+  if (state.inventory.has(normalized)) {
+    printLine(`You try using the ${normalized}, but nothing obvious happens.`);
     return;
   }
   printLine("You do not have that.");
@@ -462,8 +500,8 @@ function handleEnter(target) {
     printLine("Enter what?");
     return;
   }
-  const resolved = resolveAlias(target);
-  const interaction = interactions[resolved];
+  const normalized = normalizeTarget(target);
+  const interaction = interactions[normalized];
   if (interaction?.enter) {
     printLine(interaction.enter());
     return;
