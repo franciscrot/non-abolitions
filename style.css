@@ -1,0 +1,110 @@
+:root {
+  color-scheme: dark;
+  font-family: "Courier New", Courier, monospace;
+  background: #0b0d0f;
+  color: #e7e3d7;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #0b0d0f;
+}
+
+.terminal {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+header h1 {
+  margin: 0 0 0.5rem;
+  font-size: 2.5rem;
+}
+
+.subtitle {
+  margin: 0;
+  color: #a9b2b8;
+}
+
+.screen {
+  border: 1px solid #2c3238;
+  background: #0e1114;
+  padding: 1.5rem;
+  min-height: 360px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+#output {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  white-space: pre-wrap;
+}
+
+.output-line {
+  margin: 0;
+  line-height: 1.5;
+}
+
+#command-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+#command-form label {
+  font-size: 0.9rem;
+  color: #a9b2b8;
+}
+
+.command-line {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #0e1114;
+  border: 1px solid #2c3238;
+  padding: 0.5rem 0.75rem;
+}
+
+.command-line input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: 1rem;
+  outline: none;
+}
+
+button {
+  align-self: flex-start;
+  padding: 0.5rem 1.25rem;
+  border: 1px solid #4e5a62;
+  background: #151a1f;
+  color: inherit;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1b2228;
+}
+
+.help {
+  border-top: 1px solid #2c3238;
+  padding-top: 1rem;
+  color: #a9b2b8;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 720px) {
+  header h1 {
+    font-size: 2rem;
+  }
+
+  .screen {
+    min-height: 280px;
+  }
+}

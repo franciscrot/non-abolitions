@@ -2,7 +2,7 @@
 
 An Infocom-style text game in which **you** are a traveller moving from world to world, joining insurrections that seek to abolish police and prisons, only to confront the strange ways power reconstitutes itself. The tone is social-science-fiction, with a drifting, Le Guin–like sensibility and a vocabulary of wonders.
 
-This is a **playable-by-reading** game script designed to be read as if you were at a classic terminal prompt. You can play it alone or with friends by taking turns as parser and player.
+This project ships as a **browser-playable** interactive fiction. Once deployed to GitHub Pages, open `index.html` in your browser to play.
 
 ---
 
@@ -28,6 +28,7 @@ MEMORY
 SING
 REST
 HELP
+STAY
 ```
 
 ### Example Parser Style
@@ -72,7 +73,7 @@ Your goal is **not** to “win,” but to **learn** how to stop the cycle. The e
 Non-Abolitions
 An Interactive Fiction by You
 
-Release 1 / Serial number 000000
+Release 2 / Serial number 000000
 
 Acheybo City, Isne. It is early squall season. The sky is a quilt of dove-gray cloud, stitched with emerald contrails. You are a traveller named Nebidita, with a bag of coins, a worn star-map, and the taste of salt in your mouth. The street below smells of star anise and boiled brass.
 
