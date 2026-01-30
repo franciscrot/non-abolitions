@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Non-Abolitions</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="terminal">
+      <header>
+        <h1>The Non-Abolitions</h1>
+        <p class="subtitle">An Infocom-style text adventure about abolition across strange worlds.</p>
+      </header>
+
+      <section class="screen" aria-live="polite" aria-atomic="false">
+        <div id="output"></div>
+      </section>
+
+      <form id="command-form" autocomplete="off">
+        <label for="command">Command</label>
+        <div class="command-line">
+          <span aria-hidden="true">&gt;</span>
+          <input id="command" name="command" type="text" placeholder="LOOK" />
+        </div>
+        <button type="submit">Enter</button>
+      </form>
+
+      <section class="help">
+        <h2>Suggested Commands</h2>
+        <p>
+          LOOK, EXAMINE &lt;thing&gt;, TAKE &lt;thing&gt;, USE &lt;thing&gt;, TALK &lt;person&gt;, TRAVEL &lt;place&gt;, ENTER &lt;place&gt;,
+          INVENTORY, MEMORY, REST, HELP, STAY
+        </p>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
