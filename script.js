@@ -13,6 +13,109 @@ const state = {
   },
 };
 
+const itemData = {
+  picket: {
+    description: "A small starcraft for short leaps, its cabin glowing with bioluminescent panels.",
+    aliases: ["picket", "craft", "ship"],
+  },
+  map: {
+    description: "A stellar chart creased by travel, the ink still smelling faintly of brass.",
+    aliases: ["map", "chart", "star-map"],
+  },
+  "red sphere": {
+    description: "A mime-made nanite ball, warm as a pulse and lighter than air.",
+    aliases: ["red sphere", "sphere", "ball"],
+  },
+  mural: {
+    description: "A painted promise, cracked at the edges but still loud with hope.",
+    aliases: ["mural", "promise"],
+  },
+  mime: {
+    description: "A juggler and conjurer of quiet revolutions, speaking in gestures and glances.",
+    aliases: ["mime", "juggler"],
+  },
+  "free coup voucher": {
+    description: "A stamped slip granting one sanctioned upheaval, already half-burned.",
+    aliases: ["free coup voucher", "voucher", "coup"],
+  },
+  "barbed wire": {
+    description: "Bales of wire coiled like sleeping snakes, waiting to be unmade.",
+    aliases: ["barbed wire", "wire", "barbed"],
+  },
+  podium: {
+    description: "A podium of bulletproof sugar-glass, still glittering with past speeches.",
+    aliases: ["podium"],
+  },
+  wordle: {
+    description: "A leader who insists there are no leaders, eyes sharp with strategy.",
+    aliases: ["wordle", "leader"],
+  },
+  "gene-index": {
+    description: "A shimmering archive where kinship is searched like a database query.",
+    aliases: ["gene-index", "index", "genes"],
+  },
+  note: {
+    description: "A folded paper, blank until it must become your departure.",
+    aliases: ["note", "paper"],
+  },
+  "pronoun lexicon": {
+    description: "A living dictionary, its entries shifting with bodies and weather.",
+    aliases: ["pronoun lexicon", "lexicon", "pronouns"],
+  },
+  "wow swarm": {
+    description: "Watcher drones at insect scale, buzzing like pollen around your decisions.",
+    aliases: ["wow swarm", "swarm", "drones"],
+  },
+  "quicksilver bridle": {
+    description: "A bridle that trembles like mercury, warm even in the wind.",
+    aliases: ["quicksilver bridle", "bridle", "quicksilver"],
+  },
+  "street lamp question": {
+    description: "An ethical riddle scribbled in the margins of a city without police.",
+    aliases: ["street lamp question", "lamp", "question"],
+  },
+  curtain: {
+    description: "A portable porch curtain with a scent you cannot place.",
+    aliases: ["curtain", "drape"],
+  },
+  mule: {
+    description: "Margery, a steadfast mule with the patient gaze of a companion.",
+    aliases: ["mule", "margery"],
+  },
+  "airship deck": {
+    description: "An aerial garden of windmills and crops, welcoming and precarious.",
+    aliases: ["airship deck", "deck", "airship"],
+  },
+  "wren sigil": {
+    description: "A family mark that appears wherever the La Wrens have already been.",
+    aliases: ["wren sigil", "sigil", "wren"],
+  },
+  snowman: {
+    description: "Half-built, soft around the edges, already listening for stories.",
+    aliases: ["snowman", "snow"],
+  },
+  "story-machine": {
+    description: "A brass voice with a thousand epilogues, listening as much as it speaks.",
+    aliases: ["story-machine", "machine", "story"],
+  },
+  "burning banner": {
+    description: "A banner that reads WE DID IT, smoldering with unfinished futures.",
+    aliases: ["burning banner", "banner"],
+  },
+  "seed of future": {
+    description: "A small potential, dense as a promise you have not yet kept.",
+    aliases: ["seed of future", "seed", "future"],
+  },
+  "endless ledger": {
+    description: "An atlas of obligations, each line another task that sustains life.",
+    aliases: ["endless ledger", "ledger", "list"],
+  },
+  "ink-stone": {
+    description: "A writing tool heavy with permanence, hungry for more tasks.",
+    aliases: ["ink-stone", "ink", "stone"],
+  },
+};
+
 const nodes = {
   acheybo: {
     name: "Acheybo Rooftop",
@@ -112,6 +215,17 @@ const interactions = {
   },
   mime: {
     talk() {
+      if (!state.flags.openHand) {
+        state.flags.openHand = true;
+        state.inventory.add("open-hand signal");
+        return "The mime teaches you the Open-Hand Signal. It is a language of refusal and care.";
+      }
+      return randomLine([
+        "The mime mimes a door opening, then a city breathing.",
+        "The mime juggles silence like it weighs something.",
+        "The mime traces a circle in the air: a promise without a fence.",
+        "The mime bows, and you feel the ache of a promise kept.",
+      ]);
       if (state.flags.openHand) {
         return "The mime nods, recognizing the open-hand signal you already know.";
       }
@@ -137,6 +251,12 @@ const interactions = {
   },
   wordle: {
     talk() {
+      return randomLine([
+        "Wordle listens as you say: Available Coups Are Broken. They nod, and the room shifts.",
+        "Wordle says, \"We have no leaders,\" and then smiles like a conspiracy.",
+        "Wordle sketches a map of the senate on a napkin, then lets it burn.",
+        "Wordle asks, \"What else counts as a coup if not this?\"",
+      ]);
       return "Wordle listens as you say: Available Coups Are Broken. They nod, and the room shifts.";
     },
   },
@@ -177,6 +297,12 @@ const interactions = {
   },
   mule: {
     talk() {
+      return randomLine([
+        "Margery the mule leans into your hand, steady as the horizon.",
+        "Margery snorts softly, a weather report in miniature.",
+        "Margery watches you with the patience of a long road.",
+        "Margery flicks an ear, listening for thunder only she can hear.",
+      ]);
       return "Margery the mule leans into your hand, steady as the horizon.";
     },
   },
@@ -187,6 +313,12 @@ const interactions = {
   },
   "story-machine": {
     talk() {
+      return randomLine([
+        "The machine tells you a story about a city that became a building. You hear your own fear inside it.",
+        "The machine whispers, \"Stories are weak, and still they move mountains.\"",
+        "The machine asks if you will trade one memory for a better ending.",
+        "The machine laughs softly: \"Every epilogue is a door, not a wall.\"",
+      ]);
       return "The machine tells you a story about a city that became a building. You hear your own fear inside it.";
     },
   },
@@ -256,6 +388,24 @@ function normalizeTarget(value) {
   return value.trim().toLowerCase();
 }
 
+function resolveAlias(target) {
+  const normalized = normalizeTarget(target);
+  const match = Object.entries(itemData).find(([, data]) => data.aliases?.includes(normalized));
+  return match ? match[0] : normalized;
+}
+
+function findThing(target) {
+  const node = currentNode();
+  const resolved = resolveAlias(target);
+  return node.things.find((thing) => thing === resolved);
+}
+
+function describeThing(item) {
+  return itemData[item]?.description ?? `You study the ${item}. It tells you something quiet.`;
+}
+
+function randomLine(lines) {
+  return lines[Math.floor(Math.random() * lines.length)];
 function findThing(target) {
   const node = currentNode();
   return node.things.find((thing) => thing === target);
@@ -285,6 +435,7 @@ function handleExamine(target) {
   if (interaction?.examine) {
     printLine(interaction.examine());
   } else {
+    printLine(describeThing(item));
     printLine(`You study the ${item}. It tells you something quiet.`);
   }
 }
